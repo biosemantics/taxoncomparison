@@ -1,0 +1,18 @@
+#file paths
+filePath2ReferenceMatrix=
+filePath2ComparisonMatrix=
+filePath2CharacterWeights=
+
+#RCC5 threshholds
+#e.g., > 70% similarity difference = inclusion
+inclusionToleranceMin= 
+
+#e.g., 30-60% similarity = overlap
+overlapToleranceMin= 
+overlapToleranceMax=
+	
+#e.g., > 90% similarity = congruent
+congruenceToleranceMin= 
+
+#e.g., <10% similarity = disjoint
+disjointToleranceMax= 
