@@ -1,7 +1,7 @@
 package edu.arizona.biosemantics.taxoncomparison.model;
 
 public class ArticulationProposal {
-	String rcc5Relation = null;
+	String rcc5Relation = null; //make it enum
 	double confidence = Double.NaN;
 
 	
