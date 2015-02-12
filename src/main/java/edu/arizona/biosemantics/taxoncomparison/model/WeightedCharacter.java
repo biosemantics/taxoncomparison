@@ -16,6 +16,7 @@ public class WeightedCharacter {
 	private static final long serialVersionUID = 1L;
 	
 	boolean weighted = false; //if weighted is set to false, ignore the weight
+	//could assume weights alway come > 0, uniform weights are weights too.
 	Float weight = null; 
 	Character character = null;
 	

@@ -28,7 +28,7 @@ import edu.arizona.biosemantics.matrixreview.shared.model.core.Taxon;
  * 			
  */
 public class TaxonConceptRepo {
-	Hashtable<Taxon, TaxonConcept> taxonConcepts = new Hashtable<Taxon, TaxonConcept>(); 
+	Hashtable<Taxon, TaxonConcept> taxonConcepts = new Hashtable<Taxon, TaxonConcept>(); //Taxon is the root taxon
 
 	/**
 	 * 

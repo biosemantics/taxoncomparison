@@ -15,7 +15,9 @@ public class ScoreMatrix {
 
 	
 	public void setScore(TaxonConcept ref, TaxonConcept comp, TaxonComparisonResult score){
+		//check for null input 
 		int refIndex = refConcepts.indexOf(ref);
+		//check for -1 indexes
 		int compIndex = compConcepts.indexOf(comp);
 		scoreMatrix.put(refIndex+":"+compIndex, score);
 	}
