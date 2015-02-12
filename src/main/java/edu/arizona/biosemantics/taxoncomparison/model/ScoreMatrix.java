@@ -14,12 +14,13 @@ public class ScoreMatrix {
 	}
 
 	
-	public void setScore(TaxonConcept ref, TaxonConcept comp, TaxonComparisonResult score){
-		//check for null input 
+	public boolean setScore(TaxonConcept ref, TaxonConcept comp, TaxonComparisonResult score){
+		if(ref==null || comp==null) return false;
 		int refIndex = refConcepts.indexOf(ref);
-		//check for -1 indexes
 		int compIndex = compConcepts.indexOf(comp);
+		if(refIndex<0 ||compIndex<0) return false;
 		scoreMatrix.put(refIndex+":"+compIndex, score);
+		return true;
 	}
 	
 	public TaxonComparisonResult getScore(TaxonConcept ref, TaxonConcept comp){

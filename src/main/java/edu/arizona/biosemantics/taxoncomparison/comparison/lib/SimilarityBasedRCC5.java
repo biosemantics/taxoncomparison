@@ -69,7 +69,9 @@ public class SimilarityBasedRCC5 {
 					TaxonComparisonResult tcr = method.compare(refConcept, compConcept); //similarity score set in tcr
 					//AsymmetricSimilarityScore asc = tcr.getSimiliarityScore();
 					//popuplate these values in a m x n matrix
-					scores.setScore(refConcept, compConcept, tcr);
+					if(!scores.setScore(refConcept, compConcept, tcr)){
+						log(LogLevel.ERROR, "one or both concepts can't be found: [ref: "+refConcept+"] [comp: "+compConcept+"]");
+					}
 				}
 			}
 			//populate scores with RCC5 proposals

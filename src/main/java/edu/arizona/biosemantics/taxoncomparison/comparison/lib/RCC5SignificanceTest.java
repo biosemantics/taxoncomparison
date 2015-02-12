@@ -13,6 +13,7 @@ import com.google.inject.name.Named;
 
 import edu.arizona.biosemantics.taxoncomparison.Configuration;
 import edu.arizona.biosemantics.taxoncomparison.model.ArticulationProposal;
+import edu.arizona.biosemantics.taxoncomparison.model.RCC5Relation;
 import edu.arizona.biosemantics.taxoncomparison.model.ScoreMatrix;
 import edu.arizona.biosemantics.taxoncomparison.model.TaxonComparisonResult;
 import edu.arizona.biosemantics.taxoncomparison.model.TaxonConcept;
@@ -97,7 +98,7 @@ public class RCC5SignificanceTest {
 		//overlap
 		if(sim >disjointSimMax  && sim < congruenceSimMin /*&& oppSim >disjointSimMax*/  && diffSim <symDiffMax){
 			ArticulationProposal ap = new ArticulationProposal();
-			ap.setRcc5Relation("overlap"); 
+			ap.setRcc5Relation(RCC5Relation.overlap); 
 			//ap.setConfidence(1-(simP+oppSimP)/2);
 			ap.setConfidence(1-(simP+diffSimP)/2);
 			aps.add(ap);
@@ -106,7 +107,7 @@ public class RCC5SignificanceTest {
 		//disjoint
 		if(sim < disjointSimMax /*&& oppSim < disjointSimMax*/ && diffSim < symDiffMax){
 			ArticulationProposal ap = new ArticulationProposal();
-			ap.setRcc5Relation("disjoint");
+			ap.setRcc5Relation(RCC5Relation.disjoint);
 			//ap.setConfidence(1-(simP+oppSimP)/2);
 			ap.setConfidence(1-(simP+diffSimP)/2);
 			aps.add(ap);
@@ -115,7 +116,7 @@ public class RCC5SignificanceTest {
 		//congruent
 		if(sim > congruenceSimMin /*&& oppSim > congruenceSimMin*/ && diffSim < symDiffMax){
 			ArticulationProposal ap = new ArticulationProposal();
-			ap.setRcc5Relation("congruent");
+			ap.setRcc5Relation(RCC5Relation.congruent);
 			//ap.setConfidence(1-(simP+oppSimP)/2);
 			ap.setConfidence(1-(simP+diffSimP)/2);
 			aps.add(ap);
@@ -125,7 +126,7 @@ public class RCC5SignificanceTest {
 		if((sim > inclusionSimMin /*&& oppSim > 0d*/ && diffSim > asymDiffMin) ||
 				sim >congruenceSimMin && diffSim > symDiffMax){
 			ArticulationProposal ap = new ArticulationProposal();
-			ap.setRcc5Relation("inclusion");
+			ap.setRcc5Relation(RCC5Relation.inclusion);
 			//ap.setConfidence(1-diffSimP);
 			ap.setConfidence(1-(simP+diffSimP)/2);
 			aps.add(ap);

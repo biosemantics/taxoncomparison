@@ -1,7 +1,7 @@
 package edu.arizona.biosemantics.taxoncomparison.model;
 
 public class ArticulationProposal {
-	String rcc5Relation = null; //make it enum
+	RCC5Relation rcc5Relation = null; //make it enum
 	double confidence = Double.NaN;
 
 	
@@ -10,10 +10,10 @@ public class ArticulationProposal {
 		return this.rcc5Relation+" ["+(Double.isNaN(confidence)? "confidence cannot be assessed": confidence)+"]";
 	}
 	
-	public String getRcc5Relation() {
+	public RCC5Relation getRcc5Relation() {
 		return rcc5Relation;
 	}
-	public void setRcc5Relation(String rcc5Relation) {
+	public void setRcc5Relation(RCC5Relation rcc5Relation) {
 		this.rcc5Relation = rcc5Relation;
 	}
 	public double getConfidence() {
