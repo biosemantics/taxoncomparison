@@ -17,14 +17,12 @@ public class Configuration extends AbstractModule {
 	public  String filePath2ComparisonMatrix;
 	public  String filePath2CharacterWeights;
 	
-	public float inclusionToleranceMin; // > 70% similarity difference = inclusion
-	
-	public float overlapToleranceMin; //30-60% similarity = overlap
-	public float overlapToleranceMax; //30-60% similarity = overlap
-	
-	public float congruenceToleranceMin; // > 90% similarity = congruent
-	public float disjointToleranceMax; //<10% similarity = disjoint
-	
+	private float disjointSimMax;
+	private float symDiffMax;
+	private float congruenceSimMin;
+	private float inclusionSimMin;
+	private float asymDiffMin;
+
 	
 	
 	public Configuration(){
@@ -36,13 +34,11 @@ public class Configuration extends AbstractModule {
 			filePath2ReferenceMatrix = properties.getProperty("filePath2ReferenceMatrix");
 			filePath2ComparisonMatrix = properties.getProperty("filePath2ComparisonMatrix");
 			filePath2CharacterWeights = properties.getProperty("filePath2CharacterWeights");
-			inclusionToleranceMin = Float.valueOf(properties.getProperty("inclusionToleranceMin"));
-			overlapToleranceMin = Float.valueOf(properties.getProperty("overlapToleranceMin"));
-			congruenceToleranceMin = Float.valueOf(properties.getProperty("congruenceToleranceMin"));
-			
-
-			overlapToleranceMax = Float.valueOf(properties.getProperty("overlapToleranceMax"));
-			disjointToleranceMax = Float.valueOf(properties.getProperty("disjointToleranceMax"));
+			disjointSimMax = Float.valueOf(properties.getProperty("disjointSimMax"));
+			symDiffMax = Float.valueOf(properties.getProperty("symDiffMax"));
+			congruenceSimMin = Float.valueOf(properties.getProperty("congruenceSimMin"));
+			inclusionSimMin = Float.valueOf(properties.getProperty("inclusionSimMin"));
+			asymDiffMin = Float.valueOf(properties.getProperty("asymDiffMin"));
 			
 			properties.load(loader.getResourceAsStream("edu/arizona/biosemantics/taxoncomparison/static.properties"));
 			projectVersion = properties.getProperty("project.version");
@@ -58,11 +54,11 @@ public class Configuration extends AbstractModule {
 		bind(String.class).annotatedWith(Names.named("FilePath2ReferenceMatrix")).toInstance(this.filePath2ReferenceMatrix);
 		bind(String.class).annotatedWith(Names.named("FilePath2ComparisonMatrix")).toInstance(this.filePath2ComparisonMatrix);
 		bind(String.class).annotatedWith(Names.named("FilePath2CharacterWeights")).toInstance(this.filePath2CharacterWeights);
-		bind(Float.class).annotatedWith(Names.named("InclusionToleranceMin")).toInstance(this.inclusionToleranceMin);
-		bind(Float.class).annotatedWith(Names.named("OverlapToleranceMin")).toInstance(this.overlapToleranceMin);
-		bind(Float.class).annotatedWith(Names.named("CongruenceToleranceMin")).toInstance(this.congruenceToleranceMin);
-		bind(Float.class).annotatedWith(Names.named("OverlapToleranceMax")).toInstance(this.overlapToleranceMax);
-		bind(Float.class).annotatedWith(Names.named("DisjointToleranceMax")).toInstance(this.disjointToleranceMax);
+		bind(Float.class).annotatedWith(Names.named("DisjointSimMax")).toInstance(this.disjointSimMax);
+		bind(Float.class).annotatedWith(Names.named("SymDiffMax")).toInstance(this.symDiffMax);
+		bind(Float.class).annotatedWith(Names.named("CongruenceSimMin")).toInstance(this.congruenceSimMin);
+		bind(Float.class).annotatedWith(Names.named("InclusionSimMin")).toInstance(this.inclusionSimMin);
+		bind(Float.class).annotatedWith(Names.named("AsymDiffMin")).toInstance(this.asymDiffMin);
 		
 		bind(String.class).annotatedWith(Names.named("ProjectVersion")).toInstance(this.projectVersion);
 	}	
@@ -105,44 +101,45 @@ public class Configuration extends AbstractModule {
 		filePath2CharacterWeights = filePath2CharacterWeights;
 	}
 
-	public float getInclusionToleranceMin() {
-		return inclusionToleranceMin;
+
+	public float getDisjointSimMax() {
+		return disjointSimMax;
 	}
 
-	public void setInclusionToleranceMin(float inclusionToleranceMin) {
-		this.inclusionToleranceMin = inclusionToleranceMin;
+	public void setDisjointSimMax(float disjointSimMax) {
+		this.disjointSimMax = disjointSimMax;
 	}
 
-	public float getOverlapToleranceMin() {
-		return overlapToleranceMin;
+	public float getSymDiffMax() {
+		return symDiffMax;
 	}
 
-	public void setOverlapToleranceMin(float overlapToleranceMin) {
-		this.overlapToleranceMin = overlapToleranceMin;
+	public void setSymDiffMax(float symDiffMax) {
+		this.symDiffMax = symDiffMax;
 	}
 
-	public float getOverlapToleranceMax() {
-		return overlapToleranceMax;
+	public float getCongruenceSimMin() {
+		return congruenceSimMin;
 	}
 
-	public void setOverlapToleranceMax(float overlapToleranceMax) {
-		this.overlapToleranceMax = overlapToleranceMax;
+	public void setCongruenceSimMin(float congruenceSimMin) {
+		this.congruenceSimMin = congruenceSimMin;
 	}
 
-	public float getCongruenceToleranceMin() {
-		return congruenceToleranceMin;
+	public float getInclusionSimMin() {
+		return inclusionSimMin;
 	}
 
-	public void setCongruenceToleranceMin(float congruenceToleranceMin) {
-		this.congruenceToleranceMin = congruenceToleranceMin;
+	public void setInclusionSimMin(float inclusionSimMin) {
+		this.inclusionSimMin = inclusionSimMin;
 	}
 
-	public float getDisjointToleranceMax() {
-		return disjointToleranceMax;
+	public float getAsymDiffMin() {
+		return asymDiffMin;
 	}
 
-	public void setDisjointToleranceMax(float disjointToleranceMax) {
-		this.disjointToleranceMax = disjointToleranceMax;
+	public void setAsymDiffMin(float asymDiffMax) {
+		this.asymDiffMin = asymDiffMax;
 	}
 
 	public String toString(){
@@ -150,13 +147,14 @@ public class Configuration extends AbstractModule {
 		sb.append("filePath2ReferenceMatrix = "+ filePath2ReferenceMatrix+System.getProperty("line.separator"));
 		sb.append("filePath2ComparisonMatrix = "+ filePath2ComparisonMatrix+System.getProperty("line.separator"));
 		sb.append("filePath2CharacterWeights = "+filePath2CharacterWeights+System.getProperty("line.separator"));
-		sb.append("inclusionToleranceMin = "+inclusionToleranceMin+System.getProperty("line.separator"));
-		sb.append("overlapToleranceMin = "+overlapToleranceMin+System.getProperty("line.separator"));
-		sb.append("congruenceToleranceMin = "+congruenceToleranceMin+System.getProperty("line.separator"));
-		sb.append("overlapToleranceMax = "+overlapToleranceMax+System.getProperty("line.separator"));
-		sb.append("disjointToleranceMax = "+disjointToleranceMax+System.getProperty("line.separator"));
+		sb.append("disjointSimMax = "+disjointSimMax+System.getProperty("line.separator"));
+		sb.append("congruenceSimMin = "+congruenceSimMin+System.getProperty("line.separator"));
+		sb.append("inclusionSimMin = "+inclusionSimMin+System.getProperty("line.separator"));
+		sb.append("symDiffMax = "+symDiffMax+System.getProperty("line.separator"));
+		sb.append("asymDiffMax = "+asymDiffMin+System.getProperty("line.separator"));
 		return sb.toString();
 	}
+	
 
 	
 }

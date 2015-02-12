@@ -15,6 +15,7 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.google.inject.name.Named;
 
+import edu.arizona.biosemantics.common.log.LogLevel;
 import edu.arizona.biosemantics.matrixreview.shared.model.Model;
 import edu.arizona.biosemantics.taxoncomparison.Configuration;
 import edu.arizona.biosemantics.taxoncomparison.io.MatrixReader;
@@ -42,7 +43,8 @@ public class SimilarityBasedRCC5 {
 
 	}
 	
-	public void compute(){
+	public ArrayList<TaxonComparisonResult> compute(){
+		ArrayList<TaxonComparisonResult> results = new ArrayList<TaxonComparisonResult>();
 		try {
 			//allow the user to choose taxon concepts from 2 [multiple] matrices
 			MatrixReader reader = new MatrixReader();
@@ -72,14 +74,21 @@ public class SimilarityBasedRCC5 {
 			}
 			//populate scores with RCC5 proposals
 			//output scores
+			
 			for(TaxonConcept refConcept: refConcepts){ //
 				for(TaxonConcept compConcept: compConcepts){
 					RCC5st.calculate(refConcept, compConcept, scores);
 					TaxonComparisonResult tcr =	scores.getScore(refConcept, compConcept);
-					System.out.println("ref concept: "+refConcept.getTaxon().getFullName());
-					System.out.println("comp concept: "+compConcept.getTaxon().getFullName());
-					System.out.println(tcr.toString());
-					System.out.println();
+					log(LogLevel.DEBUG, "comp concept: "+compConcept.getTaxon().getFullName());
+					log(LogLevel.DEBUG, "ref concept: "+refConcept.getTaxon().getFullName());
+					log(LogLevel.DEBUG, tcr.toString());
+					if(!tcr.getArticulationProposals().isEmpty()){
+						System.out.println("comp concept: "+compConcept.getTaxon().getFullName());
+						System.out.println("ref concept: "+refConcept.getTaxon().getFullName());				
+						System.out.println(tcr.toString());
+						System.out.println();
+						results.add(tcr);
+					}
 				}
 			}
 			
@@ -92,6 +101,7 @@ public class SimilarityBasedRCC5 {
 		} catch (Throwable t){
 			t.printStackTrace();
 		}
+		return results;
 	}
 	
 	private static Model unserializeMatrix(String file) throws FileNotFoundException, IOException, ClassNotFoundException {

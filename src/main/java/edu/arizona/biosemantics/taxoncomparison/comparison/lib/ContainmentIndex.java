@@ -40,12 +40,16 @@ public class ContainmentIndex extends CharacterComparisonMethod implements IChar
 		AsymmetricSimilarityScore ccr = new AsymmetricSimilarityScore();
 		//simplest: string overlapping
 		Vector<String> refTokens = new Vector<String>();
-		refTokens.addAll(Arrays.asList(reference.toString().split("\\s+")));
+		refTokens.addAll(Arrays.asList(reference.getCharacter().getCharacter().getName().split("\\s+"))); 
+		refTokens.addAll(Arrays.asList(reference.getOrgan().getName().split("\\s+")));
+		refTokens.addAll(Arrays.asList(reference.getState().getValue().split("\\s+")));
 		Vector<String> comTokens = new Vector<String>();
-		comTokens.addAll(Arrays.asList(comparison.toString().split("\\s+")));
+		comTokens.addAll(Arrays.asList(comparison.getCharacter().getCharacter().getName().split("\\s+")));
+		comTokens.addAll(Arrays.asList(comparison.getOrgan().getName().split("\\s+")));
+		comTokens.addAll(Arrays.asList(comparison.getState().getValue().split("\\s+")));
 		
-		//[whole_organism:, quantity, of, lower, pedicel, at, whole_organism, [unweighted]:, present] 0.3
-		//[prickle:, quantity, of, prickle, [unweighted]:, wanting] 0.5
+		//ref:[architecture, flower, regular], comp: [fusion, distinct, stamen, united, |, quite, distinct]
+		//sim: 0; oppSim:0
 		float overlap = 0f;
 		for(String ref: refTokens){
 			if(comTokens.contains(ref)) overlap++;

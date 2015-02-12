@@ -82,11 +82,12 @@ public class Main {
 		options.addOption("n", "comparsion matrix", true, "filepath to the comparison matrix");
 		options.addOption("w", "character weights", true, "filepath to the character weights");
 
-		options.addOption("i", "inclusion min", true, "the minimal of similarity differences to be considered taxon inclusion relation");
-		options.addOption("o", "overlap range", true, "range of similarity to be considered taxon overlap relation");
+
 		options.addOption("d", "disjoint max", true, "the maximum similarity to be considered taxon disjoint relation");
 		options.addOption("c", "congruent min", true, "the minimal similarity to be considered taxon congruent relation");
-		
+		options.addOption("s", "symmetric similarity difference max", true, "maximal difference of asymmetric similiarites, used to determine symmetric relations such as disjoint, overlap, and congruent");
+		options.addOption("a", "asymmetric similarity difference min", true, "minimal difference of asymmetric similiarites, used to determine asymmetric insertion relation");
+		options.addOption("i", "inclusion min", true, "the minimal of similarity differences to be considered taxon inclusion relation");
 		options.addOption("h", "help", true, "help info");
 		
 		try {
@@ -119,36 +120,36 @@ public class Main {
 		    }
 
 		    if(commandLine.hasOption("i")) {
-		    	config.setInclusionToleranceMin(Float.parseFloat(commandLine.getOptionValue("i")));
+		    	config.setInclusionSimMin(Float.parseFloat(commandLine.getOptionValue("i")));
 		    } else {
 		    	log(LogLevel.ERROR, "inclusion min value is missing");
 		    	throw new IllegalArgumentException();
 		    }
 
-		    if(commandLine.hasOption("o")) {
-		    	String[] range = (commandLine.getOptionValue("o")).split("\\s*?-\\s*");
-		    	if(range.length!=2 || Float.parseFloat(range[0])> Float.parseFloat(range[1])){
-		    		log(LogLevel.ERROR, "overlap min or max is missing, or the format is incorrect (expect 'min-max')");
-			    	throw new IllegalArgumentException();
-		    	}else{
-		    		config.setOverlapToleranceMin(Float.parseFloat(range[0]));
-		    		config.setOverlapToleranceMax(Float.parseFloat(range[1]));
-		    	}
+		    if(commandLine.hasOption("s")) {
+		    	config.setSymDiffMax(Float.parseFloat(commandLine.getOptionValue("s")));
 		    } else {
-		    	log(LogLevel.ERROR, "overlap min or max is missing, or the format is incorrect (expect 'min-max')");
+		    	log(LogLevel.ERROR, "symmetric diff max value is missing");
+		    	throw new IllegalArgumentException();
+		    }
+		    
+		    if(commandLine.hasOption("a")) {
+		    	config.setAsymDiffMin(Float.parseFloat(commandLine.getOptionValue("a")));
+		    } else {
+		    	log(LogLevel.ERROR, "asymmetric diff min value is missing");
 		    	throw new IllegalArgumentException();
 		    }
 		    
 		    
 		    if(commandLine.hasOption("d")) {
-		    	config.setDisjointToleranceMax(Float.parseFloat(commandLine.getOptionValue("d")));
+		    	config.setDisjointSimMax(Float.parseFloat(commandLine.getOptionValue("d")));
 		    } else {
 		    	log(LogLevel.ERROR, "disjoint max value is missing");
 		    	throw new IllegalArgumentException();
 		    }
 		    
 		    if(commandLine.hasOption("c")) {
-		    	config.setCongruenceToleranceMin(Float.parseFloat(commandLine.getOptionValue("c")));
+		    	config.setCongruenceSimMin(Float.parseFloat(commandLine.getOptionValue("c")));
 		    } else {
 		    	log(LogLevel.ERROR, "congruent min value is missing");
 		    	throw new IllegalArgumentException();

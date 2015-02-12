@@ -91,7 +91,6 @@ public class MatrixReader {
 	 * @param concept
 	 * @param matrix
 	 * @param charactersByOrgan
-	 * @param weights can not be null
 	 */
 
 	private void readTaxonConcept(TaxonConcept concept, TaxonMatrix matrix,
@@ -105,6 +104,8 @@ public class MatrixReader {
 				if(state!=null && !state.getValue().isEmpty()){ //5(3-7)-parted
 					OrganCharacterState ocs = new OrganCharacterState(organ, wCharacter, state);
 					concept.addCharacter(ocs);
+				}else{
+					System.out.println("empty state");
 				}
 			}
 		}

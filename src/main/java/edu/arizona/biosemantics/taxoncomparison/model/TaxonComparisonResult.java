@@ -14,11 +14,16 @@ import edu.arizona.biosemantics.taxoncomparison.model.ArticulationProposal;
 public class TaxonComparisonResult {
 	ArrayList<ArticulationProposal> aps = new ArrayList<ArticulationProposal>();
 	AsymmetricSimilarityScore similiarityScore = null;
-	private float overlapToleranceMin;
-	private float overlapToleranceMax;
-	private float inclusionToleranceMin;
-	private float disjointToleranceMax;
-	private float congruenceToleranceMin;
+	
+	private float disjointSimMax;
+	private float symDiffMax;
+	private float congruenceSimMin;
+	private float inclusionSimMin;
+	private float asymDiffMax;
+	
+	TaxonConcept referenceConcept = null;
+	TaxonConcept comparisonConcept = null;
+	
 
 	/**
 	 * 
@@ -49,54 +54,73 @@ public class TaxonComparisonResult {
 		return this.similiarityScore;
 	}
 	
-	
-	public float getOverlapToleranceMin() {
-		return overlapToleranceMin;
+
+	public float getDisjointSimMax() {
+		return disjointSimMax;
 	}
 
 
-	public void setOverlapToleranceMin(float overlapToleranceMin) {
-		this.overlapToleranceMin = overlapToleranceMin;
+	public void setDisjointSimMax(float disjointSimMax) {
+		this.disjointSimMax = disjointSimMax;
 	}
 
 
-	public float getOverlapToleranceMax() {
-		return overlapToleranceMax;
+	public float getSymDiffMax() {
+		return symDiffMax;
 	}
 
 
-	public void setOverlapToleranceMax(float overlapToleranceMax) {
-		this.overlapToleranceMax = overlapToleranceMax;
+	public void setSymDiffMax(float symDiffMax) {
+		this.symDiffMax = symDiffMax;
 	}
 
 
-	public float getInclusionToleranceMin() {
-		return inclusionToleranceMin;
+	public float getCongruenceSimMin() {
+		return congruenceSimMin;
 	}
 
 
-	public void setInclusionToleranceMin(float inclusionToleranceMin) {
-		this.inclusionToleranceMin = inclusionToleranceMin;
+	public void setCongruenceSimMin(float congruenceSimMin) {
+		this.congruenceSimMin = congruenceSimMin;
 	}
 
 
-	public float getDisjointToleranceMax() {
-		return disjointToleranceMax;
+	public float getInclusionSimMin() {
+		return inclusionSimMin;
 	}
 
 
-	public void setDisjointToleranceMax(float disjointToleranceMax) {
-		this.disjointToleranceMax = disjointToleranceMax;
+	public void setInclusionSimMin(float inclusionSimMin) {
+		this.inclusionSimMin = inclusionSimMin;
 	}
 
 
-	public float getCongruenceToleranceMin() {
-		return congruenceToleranceMin;
+	public float getAsymDiffMax() {
+		return asymDiffMax;
 	}
 
 
-	public void setCongruenceToleranceMin(float congruenceToleranceMin) {
-		this.congruenceToleranceMin = congruenceToleranceMin;
+	public void setAsymDiffMax(float asymDiffMax) {
+		this.asymDiffMax = asymDiffMax;
+	}
+
+	public TaxonConcept getReferenceConcept() {
+		return referenceConcept;
+	}
+
+
+	public void setReferenceConcept(TaxonConcept referenceConcept) {
+		this.referenceConcept = referenceConcept;
+	}
+
+
+	public TaxonConcept getComparisonConcept() {
+		return comparisonConcept;
+	}
+
+
+	public void setComparisonConcept(TaxonConcept comparisonConcept) {
+		this.comparisonConcept = comparisonConcept;
 	}
 
 
