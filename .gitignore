@@ -1,2 +1,14 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
 /target
-/.classpath
+
+.classpath
+.project
+.settings/*
+/bin
+
+config.properties

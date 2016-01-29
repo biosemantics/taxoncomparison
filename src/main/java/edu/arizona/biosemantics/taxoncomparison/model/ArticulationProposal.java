@@ -1,26 +1,21 @@
 package edu.arizona.biosemantics.taxoncomparison.model;
 
+import java.util.Collection;
+
 public class ArticulationProposal {
-	RCC5Relation rcc5Relation = null; //make it enum
-	double confidence = Double.NaN;
 
+	public CharacterizedTaxon characterizedTaxonA;
+	public CharacterizedTaxon characterizedTaxonB;
+	private Collection<RelationProposal> relationProposals;
 	
-	@Override
-	public String toString(){
-		return this.rcc5Relation+" ["+(Double.isNaN(confidence)? "confidence cannot be assessed": confidence)+"]";
+	public ArticulationProposal(CharacterizedTaxon characterizedTaxonA, CharacterizedTaxon characterizedTaxonB, Collection<RelationProposal> relationProposals) {
+		this.characterizedTaxonA = characterizedTaxonA;
+		this.characterizedTaxonB = characterizedTaxonB;
+		this.relationProposals = relationProposals;
 	}
 	
-	public RCC5Relation getRcc5Relation() {
-		return rcc5Relation;
+	public String toString() {
+		return characterizedTaxonA.getName() + " " + characterizedTaxonB.getName() + " " + relationProposals;
 	}
-	public void setRcc5Relation(RCC5Relation rcc5Relation) {
-		this.rcc5Relation = rcc5Relation;
-	}
-	public double getConfidence() {
-		return confidence;
-	}
-	public void setConfidence(double confidence) {
-		this.confidence = confidence;
-	}
-
+	
 }
