@@ -1,4 +1,4 @@
-package edu.arizona.biosemantics.taxoncomparison.comparison.lib;
+package edu.arizona.biosemantics.taxoncomparison.comparison;
 
 import java.util.Properties;
 
