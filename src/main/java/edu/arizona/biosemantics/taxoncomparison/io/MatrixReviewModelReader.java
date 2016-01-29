@@ -56,11 +56,7 @@ public class MatrixReviewModelReader {
 			for(Character character : characters){
 				Value state = model.getTaxonMatrix().getValue(taxon, character);
 				if(state != null && !state.getValue().isEmpty()){ //5(3-7)-parted
-					CharacterState characterState = new CharacterState();
-					characterState.organ = organ.getName();
-					characterState.character = character.getName();
-					characterState.state = state.getValue();
-					characterState.weight = 1;
+					CharacterState characterState = new CharacterState(organ.getName(), character.getName(), state.getValue(), 1);
 					characterStates.add(characterState);
 				} else {
 					log(LogLevel.DEBUG, "Empty state.");

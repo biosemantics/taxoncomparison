@@ -15,13 +15,13 @@ public class ContainmentCharacterStateSimilarityMetric implements CharacterState
 	@Override
 	public AsymmetricSimilarity<CharacterState> get(CharacterState characterStateA, CharacterState characterStateB) {
 		Vector<String> refTokens = new Vector<String>();
-		refTokens.addAll(Arrays.asList(characterStateA.character.split("\\s+"))); 
-		refTokens.addAll(Arrays.asList(characterStateA.organ.split("\\s+")));
-		refTokens.addAll(Arrays.asList(characterStateA.state.split("\\s+")));
+		refTokens.addAll(Arrays.asList(characterStateA.getCharacter().split("\\s+"))); 
+		refTokens.addAll(Arrays.asList(characterStateA.getOrgan().split("\\s+")));
+		refTokens.addAll(Arrays.asList(characterStateA.getState().split("\\s+")));
 		Vector<String> comTokens = new Vector<String>();
-		comTokens.addAll(Arrays.asList(characterStateB.character.split("\\s+")));
-		comTokens.addAll(Arrays.asList(characterStateB.organ.split("\\s+")));
-		comTokens.addAll(Arrays.asList(characterStateB.state.split("\\s+")));
+		comTokens.addAll(Arrays.asList(characterStateB.getCharacter().split("\\s+")));
+		comTokens.addAll(Arrays.asList(characterStateB.getOrgan().split("\\s+")));
+		comTokens.addAll(Arrays.asList(characterStateB.getState().split("\\s+")));
 		
 		//ref:[architecture, flower, regular], comp: [fusion, distinct, stamen, united, |, quite, distinct]
 		//sim: 0; oppSim:0

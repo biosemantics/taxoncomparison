@@ -172,13 +172,13 @@ public class TTestBasedRelationGenerator implements RelationGenerator {
 		}
 		
 		if(isOverlap(similarity, oppositeSimilarity, similarityDifference)) 
-			result.add(createProposal(Relation.OVERLAP, (1 - (simP + diffSimP) / 2), similarity, oppositeSimilarity));
+			result.add(new RelationProposal(Relation.OVERLAP, (1 - (simP + diffSimP) / 2), similarity, oppositeSimilarity));
 		if(isDisjoint(similarity, oppositeSimilarity, similarityDifference)) 
-			result.add(createProposal(Relation.DISJOINT, (1 - (simP + diffSimP) / 2), similarity, oppositeSimilarity));
+			result.add(new RelationProposal(Relation.DISJOINT, (1 - (simP + diffSimP) / 2), similarity, oppositeSimilarity));
 		if(isCongruent(similarity, oppositeSimilarity, similarityDifference)) 
-			result.add(createProposal(Relation.CONGRUENT, (1 - (simP + diffSimP) / 2), similarity, oppositeSimilarity));
+			result.add(new RelationProposal(Relation.CONGRUENT, (1 - (simP + diffSimP) / 2), similarity, oppositeSimilarity));
 		if(isInclusion(similarity, oppositeSimilarity, similarityDifference)) 
-			result.add(createProposal(Relation.A_INCLUDES_B, (1 - (simP + diffSimP) / 2), similarity, oppositeSimilarity));
+			result.add(new RelationProposal(Relation.A_INCLUDES_B, (1 - (simP + diffSimP) / 2), similarity, oppositeSimilarity));
 
 		log(LogLevel.DEBUG, "Similarity = " + similarity);
 		log(LogLevel.DEBUG, "OppSimilarity = " + oppositeSimilarity);
@@ -202,15 +202,5 @@ public class TTestBasedRelationGenerator implements RelationGenerator {
 	
 	private boolean isOverlap(double similarity, double oppositeSimilarity,	double similarityDifference) {
 		return similarity > disjointSimilarityMax  && similarity < congruenceSimilarityMin /*&& oppSim >disjointSimMax*/  && similarityDifference < symmmetricDifferenceMax;
-	}
-
-	private RelationProposal createProposal(Relation relation, double confidence, double similarity, double oppositeSimilarity) {
-		RelationProposal relationProposal = new RelationProposal();
-		relationProposal.similarity = similarity;
-		relationProposal.oppositeSimilarity = oppositeSimilarity;
-		relationProposal.relation = relation; 
-		//ap.setConfidence(1-(simP+oppSimP)/2);
-		relationProposal.confidence = confidence;
-		return relationProposal;
 	}
 }
